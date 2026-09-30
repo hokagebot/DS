@@ -1,0 +1,3356 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DS Practical Programs</title><style>*{box-sizing:border-box}body{margin:0;background:#101216;color:#f4f4f5;font-family:Arial,Helvetica,sans-serif}header{position:sticky;top:0;z-index:10;padding:18px;background:#181b21;border-bottom:1px solid #30343c}h1{margin:0 0 6px;font-size:25px}.sub{color:#9ca3af;font-size:13px;margin-bottom:14px}#search{width:100%;padding:12px 14px;background:#0e1014;color:#fff;border:1px solid #3a404b;border-radius:9px;font-size:15px}main{max-width:1050px;margin:auto;padding:22px}section{margin-bottom:28px}h2{font-size:18px;color:#d9dde5;margin:8px 0 12px}.program{border:1px solid #30343c;border-radius:10px;overflow:hidden;background:#181b21;margin:9px 0}.program-header{width:100%;border:0;background:none;color:#fff;padding:15px 16px;text-align:left;display:flex;justify-content:space-between;cursor:pointer;font-size:16px;font-weight:600}.program-header:hover{background:#1e222a}.arrow{color:#9aa2b1;transition:.15s}.program.open .arrow{transform:rotate(90deg)}.program-body{display:none;border-top:1px solid #30343c;padding:14px;position:relative}.program.open .program-body{display:block}pre{margin:0;padding:16px;background:#090b0e;border:1px solid #292e36;border-radius:8px;white-space:pre-wrap;overflow:auto;font-family:Consolas,"Courier New",monospace;font-size:13px;line-height:1.45}.copy{position:absolute;right:24px;top:24px;z-index:1;background:#2b6fff;color:white;border:0;border-radius:7px;padding:8px 12px;font-weight:700;cursor:pointer}.copy:hover{background:#1f5ddd}.copied{display:none;position:absolute;right:24px;top:62px;color:#7ee787;font-size:12px}.empty{display:none;text-align:center;color:#9ca3af;padding:25px}.question{color:#d9dde5;font-size:14px;line-height:1.5;margin:0 0 12px}</style><script>async function copyProgram(btn,id){const el=document.getElementById("code-"+id);let text=el.innerText;const lines=text.split("\n");const firstCode=lines.findIndex(line=>line.trim().startsWith("#include"));if(firstCode>=0)text=lines.slice(firstCode).join("\n").trim();try{await navigator.clipboard.writeText(text)}catch(e){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove()}const msg=btn.parentElement.querySelector(".copied");msg.style.display="block";setTimeout(()=>msg.style.display="none",1200)}function toggleProgram(btn){btn.parentElement.classList.toggle("open")}function searchPrograms(){const q=document.getElementById("search").value.toLowerCase().trim();let shown=0;document.querySelectorAll(".program").forEach(p=>{const ok=!q||p.innerText.toLowerCase().includes(q);p.style.display=ok?"block":"none";if(ok)shown++});document.getElementById("empty").style.display=shown?"none":"block"}</script></head><body><header><h1>DS Practical Programs</h1><div class="sub">25 slips • 50 programs • Single-click to open • COPY CODE copies only the C program</div><input id="search" oninput="searchPrograms()" placeholder="Search: Slip 1, Stack, Queue, Linked List, Quick Sort..."></header><main><section><h2>SLIP 1</h2><article class="program" data-title="slip 1 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 1 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a C program to create random n elements and sort them in ascending order using insertion sort.</p><button class="copy" onclick="copyProgram(this,0)">COPY CODE</button><pre id="code-0">#include &lt;stdio.h&gt;
+int main()
+{
+    int a[50], n, i, j, key;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d elements:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    }
+  // Insertion Sort
+    for(i = 1; i &lt; n; i++)
+    {
+        key = a[i];
+        j = i - 1;
+                     while(j &gt;= 0 &amp;&amp; a[j] &gt; key)
+        {
+            a[j + 1] = a[j];
+            j--;
+        }
+         a[j + 1] = key;
+    }
+    printf(&quot;Sorted Array:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        printf(&quot;%d &quot;, a[i]);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 1 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 1 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a C program to perform the following operations using static implementation of stack: (i) Accept n
+integers from user and push it into the stack. (ii) Pop the element from the stack and display it (Use IsEmpty()).</p><button class="copy" onclick="copyProgram(this,1)">COPY CODE</button><pre id="code-1">#include &lt;stdio.h&gt;
+#define MAX 50
+int stack[MAX];
+int top = -1;
+// Check whether stack is empty
+int IsEmpty()
+{
+    if(top == -1)
+        return 1;
+    else
+        return 0;
+}
+// Push operation
+void Push(int x)
+{
+    top++;
+    stack[top] = x;
+}
+// Pop operation
+void Pop()
+{
+    if(IsEmpty())
+        printf(&quot;Stack is Empty&quot;);
+    else
+    {
+        printf(&quot;Popped element = %d&quot;, stack[top]);
+        top--;
+    }
+}
+int main()
+{
+    int n, i, x;
+                 printf(&quot;Enter number of elements: &quot;);
+              scanf(&quot;%d&quot;, &amp;n);
+             printf(&quot;Enter elements:\n&quot;);
+            for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;x);
+        Push(x);
+    }
+   Pop();
+ return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 2</h2><article class="program" data-title="slip 2 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 2 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a C program to implement static implementation of Queue of integers with following operations:
+Initialize(), Insert(), Delete(), IsEmpty(), Display.</p><button class="copy" onclick="copyProgram(this,2)">COPY CODE</button><pre id="code-2">#include &lt;stdio.h&gt;
+#define MAX 50
+int queue[MAX];
+int front, rear;
+/* Initialize Queue */
+void Initialize()
+{
+   front = -1;
+ rear = -1;
+}
+/* Check Queue is Empty */
+int IsEmpty()
+{
+    if (front == -1)
+        return 1;
+    else
+        return 0;
+}
+/* Insert element */
+void Insert(int x)
+{
+    if (rear == MAX - 1)
+        printf(&quot;Queue is Full\n&quot;);
+    else
+    {
+        if (front == -1)
+            front = 0;
+           rear++;
+        queue[rear] = x;
+    }
+}
+/* Delete element */
+void Delete()
+{
+    if (IsEmpty())
+        printf(&quot;Queue is Empty\n&quot;);
+    else
+    {
+        printf(&quot;Deleted element = %d\n&quot;, queue[front]);
+        if (front == rear)
+            front = rear = -1;
+        else
+            front++;
+    }
+}
+/* Display Queue */
+void Display()
+{
+    int i;if (IsEmpty())
+        printf(&quot;Queue is Empty\n&quot;);
+    else
+    {
+        printf(&quot;Queue: &quot;);
+        for (i = front; i &lt;= rear; i++)
+            printf(&quot;%d &quot;, queue[i]);
+        printf(&quot;\n&quot;);
+    }
+}
+int main()
+{
+    int n, i, x;
+    Initialize();
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter elements:\n&quot;);
+    for (i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;x);
+        Insert(x);
+    }
+    Display();
+    Delete();
+    Display();
+    return 0;
+
+
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 2 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 2 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven program for the following operations on singly linked list: (i) Create and display a linked
+list of n nodes. (ii) Search a particular element from a linked list.</p><button class="copy" onclick="copyProgram(this,3)">COPY CODE</button><pre id="code-3">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+   struct node *next;
+};
+struct node *head = NULL;
+/* Create Linked List */
+void create()
+{
+    int n, i, value;
+    struct node *newnode, *temp;
+    printf(&quot;Enter number of nodes: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    for(i = 0; i &lt; n; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        printf(&quot;Enter data: &quot;);
+        scanf(&quot;%d&quot;, &amp;value);
+        newnode-&gt;data = value;
+        newnode-&gt;next = NULL;
+        if(head == NULL)
+        {
+            head = newnode;
+        }
+        else
+        {
+            temp = head;
+            while(temp-&gt;next != NULL)
+                temp = temp-&gt;next;
+            temp-&gt;next = newnode;
+        }
+    }
+}
+/* Display Linked List */
+void display()
+{
+    struct node *temp = head;
+    if(head == NULL)
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    printf(&quot;Linked List: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d -&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+/* Search an Element */
+void search()
+{
+    int key, pos = 1;
+    struct node *temp = head;
+    printf(&quot;Enter element to search: &quot;);
+    scanf(&quot;%d&quot;, &amp;key);
+    while(temp != NULL)
+    {
+        if(temp-&gt;data == key)
+        {
+            printf(&quot;Element found at position %d\n&quot;, pos);
+            return;
+        }
+        temp = temp-&gt;next;
+        pos++;
+    }
+    printf(&quot;Element not found\n&quot;);
+}
+
+
+/* Main Function */
+int main()
+{
+    int choice;
+    while(1)
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Create Linked List\n&quot;);
+        printf(&quot;2. Display Linked List\n&quot;);
+        printf(&quot;3. Search Element\n&quot;);
+        printf(&quot;4. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                create();
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                search();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 3</h2><article class="program" data-title="slip 3 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 3 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Accept the array of n integers from user and sort the array in ascending order by using recursive Quick sort
+algorithm.</p><button class="copy" onclick="copyProgram(this,4)">COPY CODE</button><pre id="code-4">#include &lt;stdio.h&gt;
+void quickSort(int a[], int low, int high)
+{
+    int i, j, pivot, temp;
+    if(low &lt; high)
+    {
+        pivot = a[low];
+        i = low;
+        j = high;
+        while(i &lt; j)
+        {
+            while(a[i] &lt;= pivot &amp;&amp; i &lt; high)
+                i++;
+            while(a[j] &gt; pivot)
+                j--;
+            if(i &lt; j)
+            {
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+        // Put pivot in correct position
+        temp = a[low];
+        a[low] = a[j];
+        a[j] = temp;
+        // Recursive calls
+        quickSort(a, low, j - 1);
+        quickSort(a, j + 1, high);
+    }
+}
+int main()
+{
+    int a[50], n, i;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d elements:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    }
+    quickSort(a, 0, n - 1);
+    printf(&quot;Array in ascending order:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        printf(&quot;%d &quot;, a[i]);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 3 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 3 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Create a random array of n integers. Accept a value x from user and use linear search algorithm to check
+whether the number is present in the array or not and output the position if the number is present.</p><button class="copy" onclick="copyProgram(this,5)">COPY CODE</button><pre id="code-5">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main()
+{
+    int a[50], n, x, i, found = 0;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Create random array */
+    printf(&quot;Random array:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+
+
+    {
+        a[i] = rand() % 100;
+        printf(&quot;%d &quot;, a[i]);
+    }
+    /* Accept value to search */
+    printf(&quot;\nEnter value to search: &quot;);
+    scanf(&quot;%d&quot;, &amp;x);
+    /* Linear Search */
+    for(i = 0; i &lt; n; i++)
+    {
+        if(a[i] == x)
+        {
+            printf(&quot;Element found at position %d\n&quot;, i + 1);
+            found = 1;
+            break;
+        }
+    }
+    if(found == 0)
+    {
+        printf(&quot;Element not found\n&quot;);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 4</h2><article class="program" data-title="slip 4 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 4 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Read the data from file &#x27;student.txt&#x27; containing names of student and their class (FY, SY, TY). Accept a student
+name from user and use linear search algorithm to check whether the name is present in the file and output the
+Class of student otherwise output &quot;Student not in the list&quot;.</p><button class="copy" onclick="copyProgram(this,6)">COPY CODE</button><pre id="code-6">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+int main()
+{
+    FILE *fp;
+    char name[30], sname[30], class[10];
+    int found = 0;
+    fp = fopen(&quot;student.txt&quot;, &quot;r&quot;);
+    if(fp == NULL)
+    {
+        printf(&quot;File not found&quot;);
+        return 0;
+    }
+    printf(&quot;Enter student name: &quot;);
+    scanf(&quot;%s&quot;, name);
+    /* Linear Search */
+    while(fscanf(fp, &quot;%s %s&quot;, sname, class) != EOF)
+    {
+        if(strcmp(name, sname) == 0)
+        {
+            printf(&quot;Student Class: %s\n&quot;, class);
+            found = 1;
+            break;
+        }
+    }
+    if(found == 0)
+    {
+        printf(&quot;Student not in the list\n&quot;);
+    }
+    fclose(fp);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 4 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 4 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a &#x27;C&#x27; program to reverse a string using Static implementation of Stack.</p><button class="copy" onclick="copyProgram(this,7)">COPY CODE</button><pre id="code-7">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define MAX 100
+char stack[MAX];
+int top = -1;
+void push(char ch)
+{
+    if (top == MAX - 1)
+        printf(&quot;Stack Overflow\n&quot;);
+    else
+        stack[++top] = ch;
+}
+char pop()
+{
+    if (top == -1)
+        return &#x27;\0&#x27;;
+    else
+        return stack[top--];
+}
+int main()
+{
+    char str[MAX];
+    int i;
+    printf(&quot;Enter a string: &quot;);
+    fgets(str, MAX, stdin);
+    /* Remove newline */
+    str[strcspn(str, &quot;\n&quot;)] = &#x27;\0&#x27;;
+    /* Push characters into stack */
+    for (i = 0; str[i] != &#x27;\0&#x27;; i++)
+
+
+    {
+        push(str[i]);
+    }
+    /* Pop characters */
+    printf(&quot;Reversed string: &quot;);
+    while (top != -1)
+    {
+        printf(&quot;%c&quot;, pop());
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 5</h2><article class="program" data-title="slip 5 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 5 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a C program to implement singly linked list with Create and Display operation.</p><button class="copy" onclick="copyProgram(this,8)">COPY CODE</button><pre id="code-8">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *next;
+};
+int main()
+{
+    struct node *head = NULL;
+    struct node *newnode, *temp;
+    int n, i;
+    printf(&quot;Enter number of nodes: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Create Linked List */
+    for(i = 1; i &lt;= n; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        printf(&quot;Enter data: &quot;);
+        scanf(&quot;%d&quot;, &amp;newnode-&gt;data);
+        newnode-&gt;next = NULL;
+        if(head == NULL)
+        {
+            head = newnode;
+        }
+        else
+        {
+            temp = head;
+            while(temp-&gt;next != NULL)
+            {
+                temp = temp-&gt;next;
+            }
+            temp-&gt;next = newnode;
+        }
+    }
+    /* Display Linked List */
+    printf(&quot;\nLinked List: &quot;);
+    temp = head;
+    while(temp != NULL)
+    {
+        printf(&quot;%d -&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL&quot;);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 5 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 5 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Read the data from file &#x27;student.txt&#x27; containing names of student and their class (FY, SY, TY). Accept a student
+name from user and use linear search algorithm to check whether the name is present in the file and output the
+class of student otherwise output &quot;Student not in the list&quot;.</p><button class="copy" onclick="copyProgram(this,9)">COPY CODE</button><pre id="code-9">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+int main()
+{
+    FILE *fp;
+    char name[30], sname[30], class[10];
+    int found = 0;
+    fp = fopen(&quot;student.txt&quot;, &quot;r&quot;);
+    if(fp == NULL)
+    {
+        printf(&quot;File not found&quot;);
+        return 0;
+    }
+    printf(&quot;Enter student name: &quot;);
+
+
+    scanf(&quot;%s&quot;, name);
+    /* Linear Search */
+    while(fscanf(fp, &quot;%s %s&quot;, sname, class) != EOF)
+    {
+        if(strcmp(name, sname) == 0)
+        {
+            printf(&quot;Student Class: %s\n&quot;, class);
+            found = 1;
+            break;
+        }
+    }
+    if(found == 0)
+    {
+        printf(&quot;Student not in the list\n&quot;);
+    }
+    fclose(fp);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 6</h2><article class="program" data-title="slip 6 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 6 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Sort a random array of n integers (accept the value of n from user) in ascending order by using insertion sort
+algorithm.</p><button class="copy" onclick="copyProgram(this,10)">COPY CODE</button><pre id="code-10">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main()
+{
+    int a[50], n, i, j, key;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Generate random array */
+    printf(&quot;Random Array:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        a[i] = rand() % 100;
+        printf(&quot;%d &quot;, a[i]);
+    }
+    /* Insertion Sort */
+    for(i = 1; i &lt; n; i++)
+    {
+        key = a[i];
+        j = i - 1;
+        while(j &gt;= 0 &amp;&amp; a[j] &gt; key)
+        {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
+    }
+    /* Display sorted array */
+    printf(&quot;\n\nArray in ascending order:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        printf(&quot;%d &quot;, a[i]);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 6 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 6 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven program for the following operations on singly linked list: (i) Create and display a linked
+list of n nodes. (ii) Search an element in a linked list.</p><button class="copy" onclick="copyProgram(this,11)">COPY CODE</button><pre id="code-11">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+   struct node *next;
+};
+struct node *head = NULL;
+/* Create Linked List */
+void create()
+{
+    int n, i, value;
+    struct node *newnode, *temp;
+    printf(&quot;Enter number of nodes: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    for(i = 0; i &lt; n; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        printf(&quot;Enter data: &quot;);
+        scanf(&quot;%d&quot;, &amp;value);
+        newnode-&gt;data = value;
+        newnode-&gt;next = NULL;
+        if(head == NULL)
+        {
+            head = newnode;
+        }
+        else
+        {
+            temp = head;
+            while(temp-&gt;next != NULL)
+
+
+                temp = temp-&gt;next;
+            temp-&gt;next = newnode;
+        }
+    }
+}
+/* Display Linked List */
+void display()
+{
+    struct node *temp = head;
+    if(head == NULL)
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    printf(&quot;Linked List: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d -&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+/* Search an Element */
+void search()
+{
+    int key, pos = 1;
+    struct node *temp = head;
+    printf(&quot;Enter element to search: &quot;);
+    scanf(&quot;%d&quot;, &amp;key);
+    while(temp != NULL)
+    {
+        if(temp-&gt;data == key)
+        {
+            printf(&quot;Element found at position %d\n&quot;, pos);
+            return;
+        }
+        temp = temp-&gt;next;
+        pos++;
+    }
+    printf(&quot;Element not found\n&quot;);
+}
+/* Main Function */
+int main()
+{
+    int choice;
+    while(1)
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Create Linked List\n&quot;);
+        printf(&quot;2. Display Linked List\n&quot;);
+        printf(&quot;3. Search Element\n&quot;);
+        printf(&quot;4. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                create();
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                search();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 7</h2><article class="program" data-title="slip 7 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 7 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Accept n sorted values in array from user. Accept a value x from user and use binary search algorithm to
+check whether the number is present in sorted array or not and output the position if the number is present.</p><button class="copy" onclick="copyProgram(this,12)">COPY CODE</button><pre id="code-12">#include &lt;stdio.h&gt;
+int main()
+{
+    int a[50], n, x;
+    int low, high, mid, found = 0;
+    int i;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d sorted elements:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    }
+    printf(&quot;Enter value to search: &quot;);
+    scanf(&quot;%d&quot;, &amp;x);
+    low = 0;
+    high = n - 1;
+    /* Binary Search */
+    while(low &lt;= high)
+    {
+        mid = (low + high) / 2;
+        if(a[mid] == x)
+        {
+            printf(&quot;Element found at position %d\n&quot;, mid + 1);
+            found = 1;
+            break;
+        }
+        else if(x &lt; a[mid])
+        {
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+    if(found == 0)
+    {
+        printf(&quot;Element not found\n&quot;);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 7 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 7 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Read the data from “Student.txt (Stud_name, Age, Percentage)” file and sort on Age using insertion sort.
+(Create a separate sorted file.)</p><button class="copy" onclick="copyProgram(this,13)">COPY CODE</button><pre id="code-13">#include &lt;stdio.h&gt;
+struct Student
+{
+    char name[30];
+    int age;
+    float percentage;
+};
+int main()
+{
+    FILE *fp, *sp;
+    struct Student s[50], temp;
+    int n = 0, i, j;
+    /* Open input file */
+    fp = fopen(&quot;Student.txt&quot;, &quot;r&quot;);
+    if(fp == NULL)
+    {
+        printf(&quot;Student.txt file not found&quot;);
+        return 0;
+    }
+    /* Read data from file */
+
+
+    while(fscanf(fp, &quot;%s %d %f&quot;,
+                 s[n].name,
+                 &amp;s[n].age,
+                 &amp;s[n].percentage) != EOF)
+    {
+        n++;
+    }
+    fclose(fp);
+    /* Insertion Sort according to Age */
+    for(i = 1; i &lt; n; i++)
+    {
+        temp = s[i];
+        j = i - 1;
+        while(j &gt;= 0 &amp;&amp; s[j].age &gt; temp.age)
+        {
+            s[j + 1] = s[j];
+            j--;
+        }
+        s[j + 1] = temp;
+    }
+    /* Create sorted file */
+    sp = fopen(&quot;SortedStudent.txt&quot;, &quot;w&quot;);
+    if(sp == NULL)
+    {
+        printf(&quot;Unable to create file&quot;);
+        return 0;
+    }
+    /* Write sorted data */
+    for(i = 0; i &lt; n; i++)
+    {
+        fprintf(sp, &quot;%s %d %.2f\n&quot;,
+                s[i].name,
+                s[i].age,
+                s[i].percentage);
+    }
+    fclose(sp);
+    printf(&quot;Data sorted by Age successfully.&quot;);
+    printf(&quot;\nSorted data is stored in SortedStudent.txt&quot;);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 8</h2><article class="program" data-title="slip 8 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 8 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Sort a random array of integers (accept the value of n from user) in ascending order by using bubble sort
+algorithm.</p><button class="copy" onclick="copyProgram(this,14)">COPY CODE</button><pre id="code-14">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main()
+{
+    int a[50], n, i, j, temp;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Generate random array */
+    printf(&quot;Random Array:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        a[i] = rand() % 100;
+        printf(&quot;%d &quot;, a[i]);
+    }
+    /* Bubble Sort */
+    for(i = 0; i &lt; n - 1; i++)
+    {
+        for(j = 0; j &lt; n - i - 1; j++)
+        {
+            if(a[j] &gt; a[j + 1])
+            {
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+    /* Display sorted array */
+    printf(&quot;\n\nArray in ascending order:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        printf(&quot;%d &quot;, a[i]);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 8 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 8 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven program for the following operations on doubly link list: (i) Create and display a link list
+of n nodes. (ii) Insert an element in a linked list at a particular position.</p><button class="copy" onclick="copyProgram(this,15)">COPY CODE</button><pre id="code-15">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *prev;
+    struct node *next;
+};
+struct node *head = NULL;
+/* Create Linked List */
+void create()
+{
+    int n, i, value;
+    struct node *newnode, *temp;
+    printf(&quot;Enter number of nodes: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    for(i = 1; i &lt;= n; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        printf(&quot;Enter data: &quot;);
+        scanf(&quot;%d&quot;, &amp;value);
+        newnode-&gt;data = value;
+        newnode-&gt;prev = NULL;
+        newnode-&gt;next = NULL;
+        if(head == NULL)
+        {
+
+
+            head = newnode;
+        }
+        else
+        {
+            temp = head;
+            while(temp-&gt;next != NULL)
+                temp = temp-&gt;next;
+            temp-&gt;next = newnode;
+            newnode-&gt;prev = temp;
+        }
+    }
+}
+/* Display Linked List */
+void display()
+{
+    struct node *temp = head;
+    if(head == NULL)
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    printf(&quot;Doubly Linked List: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d &lt;-&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+/* Insert at particular position */
+void insert()
+{
+    int value, pos, i;
+    struct node *newnode, *temp;
+    printf(&quot;Enter value to insert: &quot;);
+    scanf(&quot;%d&quot;, &amp;value);
+    printf(&quot;Enter position: &quot;);
+    scanf(&quot;%d&quot;, &amp;pos);
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode-&gt;data = value;
+    newnode-&gt;prev = NULL;
+    newnode-&gt;next = NULL;
+    /* Insert at first position */
+    if(pos == 1)
+    {
+        newnode-&gt;next = head;
+        if(head != NULL)
+            head-&gt;prev = newnode;
+        head = newnode;
+    }
+    else
+    {
+        temp = head;
+        for(i = 1; i &lt; pos - 1 &amp;&amp; temp != NULL; i++)
+            temp = temp-&gt;next;
+        if(temp == NULL)
+        {
+            printf(&quot;Invalid position\n&quot;);
+            free(newnode);
+            return;
+        }
+        newnode-&gt;next = temp-&gt;next;
+        newnode-&gt;prev = temp;
+        if(temp-&gt;next != NULL)
+            temp-&gt;next-&gt;prev = newnode;
+        temp-&gt;next = newnode;
+    }
+    printf(&quot;Element inserted successfully\n&quot;);
+}
+/* Main Function */
+int main()
+{
+
+
+    int choice;
+    while(1)
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Create Linked List\n&quot;);
+        printf(&quot;2. Display Linked List\n&quot;);
+        printf(&quot;3. Insert at Particular Position\n&quot;);
+        printf(&quot;4. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                create();
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                insert();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 9</h2><article class="program" data-title="slip 9 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 9 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven program for the following operations on singly linked list: (i) Create and display a linked
+list of n nodes. (ii) Delete a particular element from a linked list.</p><button class="copy" onclick="copyProgram(this,16)">COPY CODE</button><pre id="code-16">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+/* Create Linked List */
+void create()
+{
+    int n, i;
+    struct node *newnode, *temp;
+    printf(&quot;Enter number of nodes: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    for(i = 1; i &lt;= n; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        printf(&quot;Enter data: &quot;);
+        scanf(&quot;%d&quot;, &amp;newnode-&gt;data);
+        newnode-&gt;next = NULL;
+        if(head == NULL)
+        {
+            head = newnode;
+        }
+        else
+        {
+            temp = head;
+            while(temp-&gt;next != NULL)
+                temp = temp-&gt;next;
+            temp-&gt;next = newnode;
+        }
+    }
+}
+/* Display Linked List */
+void display()
+{
+    struct node *temp = head;
+    if(head == NULL)
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    printf(&quot;Linked List: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d -&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+/* Delete Particular Element */
+void deleteElement()
+{
+    int value;
+    struct node *temp, *prev;
+    printf(&quot;Enter element to delete: &quot;);
+    scanf(&quot;%d&quot;, &amp;value);
+    temp = head;
+    prev = NULL;
+    /* Search the element */
+    while(temp != NULL &amp;&amp; temp-&gt;data != value)
+    {
+        prev = temp;
+        temp = temp-&gt;next;
+    }
+
+
+    /* Element not found */
+    if(temp == NULL)
+    {
+        printf(&quot;Element not found\n&quot;);
+        return;
+    }
+    /* Delete first node */
+    if(prev == NULL)
+    {
+        head = temp-&gt;next;
+    }
+    else
+    {
+        prev-&gt;next = temp-&gt;next;
+    }
+    free(temp);
+    printf(&quot;Element deleted successfully\n&quot;);
+}
+/* Main Function */
+int main()
+{
+    int choice;
+    while(1)
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Create Linked List\n&quot;);
+        printf(&quot;2. Display Linked List\n&quot;);
+        printf(&quot;3. Delete Element\n&quot;);
+        printf(&quot;4. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                create();
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                deleteElement();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 9 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 9 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Create a random array of n integers. Accept a value x from user and use linear search algorithm to check
+whether the number is present in the array or not and output the position if the number is present. (i) Accept &amp;
+Display Function (ii) Linear Search Function.</p><button class="copy" onclick="copyProgram(this,17)">COPY CODE</button><pre id="code-17">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+/* Accept and Display Function */
+void acceptDisplay(int a[], int n)
+{
+    int i;
+    printf(&quot;Random Array:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+  
+        printf(&quot;%d &quot;, a[i]);
+    }
+}
+/* Linear Search Function */
+int linearSearch(int a[], int n, int x)
+{
+    int i;
+    for(i = 0; i &lt; n; i++)
+
+
+    {
+        if(a[i] == x)
+            return i + 1;
+    }
+    return -1;
+}
+int main()
+{
+    int a[50], n, x, position;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Function call */
+    acceptDisplay(a, n);
+    printf(&quot;\nEnter value to search: &quot;);
+    scanf(&quot;%d&quot;, &amp;x);
+    /* Linear Search */
+    position = linearSearch(a, n, x);
+    if(position != -1)
+        printf(&quot;Element found at position %d\n&quot;, position);
+    else
+        printf(&quot;Element not found\n&quot;);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 10</h2><article class="program" data-title="slip 10 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 10 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Create random array of n integers and sort the array in ascending order by using recursive Merge sort
+algorithm.</p><button class="copy" onclick="copyProgram(this,18)">COPY CODE</button><pre id="code-18">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+/* Merge two parts */
+void merge(int a[], int low, int mid, int high)
+{
+    int temp[50];
+    int i = low, j = mid + 1, k = low;
+    while(i &lt;= mid &amp;&amp; j &lt;= high)
+    {
+        if(a[i] &lt; a[j])
+        {
+            temp[k] = a[i];
+            i++;
+        }
+        else
+        {
+            temp[k] = a[j];
+            j++;
+        }
+        k++;
+    }
+    while(i &lt;= mid)
+    {
+        temp[k] = a[i];
+        i++;
+        k++;
+    }
+    while(j &lt;= high)
+    {
+        temp[k] = a[j];
+        j++;
+        k++;
+    }
+    for(i = low; i &lt;= high; i++)
+    {
+        a[i] = temp[i];
+    }
+}
+/* Recursive Merge Sort */
+void mergeSort(int a[], int low, int high)
+{
+    int mid;
+    if(low &lt; high)
+    {
+        mid = (low + high) / 2;
+        mergeSort(a, low, mid);
+        mergeSort(a, mid + 1, high);
+        merge(a, low, mid, high);
+    }
+}
+int main()
+{
+    int a[50], n, i;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Create random array */
+    printf(&quot;Random Array:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        
+        printf(&quot;%d &quot;, a[i]);
+    }
+    /* Call Merge Sort */
+    mergeSort(a, 0, n - 1);
+    /* Display sorted array */
+    printf(&quot;\n\nArray in ascending order:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        printf(&quot;%d &quot;, a[i]);
+    }
+
+
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 10 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 10 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a C program to implement Static implementation of stack of integers with following operation: a.
+Initialize() b. Push() c. Pop() d. IsEmpty() e. IsFull() f. Peek()</p><button class="copy" onclick="copyProgram(this,19)">COPY CODE</button><pre id="code-19">#include &lt;stdio.h&gt;
+#define MAX 5
+int stack[MAX];
+int top;
+/* Initialize Stack */
+void Initialize()
+{
+    top = -1;
+}
+/* Push Operation */
+void Push()
+{
+    int x;
+    if(IsFull())
+    {
+        printf(&quot;Stack is Full\n&quot;);
+    }
+    else
+    {
+        printf(&quot;Enter element: &quot;);
+        scanf(&quot;%d&quot;, &amp;x);
+        top++;
+        stack[top] = x;
+        printf(&quot;Element pushed successfully\n&quot;);
+    }
+}
+/* Pop Operation */
+void Pop()
+{
+    if(IsEmpty())
+    {
+        printf(&quot;Stack is Empty\n&quot;);
+    }
+    else
+    {
+        printf(&quot;Popped element = %d\n&quot;, stack[top]);
+        top--;
+    }
+}
+/* IsEmpty Operation */
+int IsEmpty()
+{
+    if(top == -1)
+        return 1;
+    else
+        return 0;
+}
+/* IsFull Operation */
+int IsFull()
+{
+    if(top == MAX - 1)
+        return 1;
+    else
+        return 0;
+}
+/* Peek Operation */
+void Peek()
+{
+    if(IsEmpty())
+    {
+        printf(&quot;Stack is Empty\n&quot;);
+    }
+    else
+    {
+        printf(&quot;Top element = %d\n&quot;, stack[top]);
+    }
+}
+int main()
+{
+    int choice;
+    Initialize();
+
+
+    while(1)
+    {
+        printf(&quot;\n--- STACK MENU ---\n&quot;);
+        printf(&quot;1. Push\n&quot;);
+        printf(&quot;2. Pop\n&quot;);
+        printf(&quot;3. IsEmpty\n&quot;);
+        printf(&quot;4. IsFull\n&quot;);
+        printf(&quot;5. Peek\n&quot;);
+        printf(&quot;6. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                Push();
+                break;
+            case 2:
+                Pop();
+                break;
+            case 3:
+                if(IsEmpty())
+                    printf(&quot;Stack is Empty\n&quot;);
+                else
+                    printf(&quot;Stack is Not Empty\n&quot;);
+                break;
+            case 4:
+                if(IsFull())
+                    printf(&quot;Stack is Full\n&quot;);
+                else
+                    printf(&quot;Stack is Not Full\n&quot;);
+                break;
+            case 5:
+                Peek();
+                break;
+            case 6:
+                return 0;
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    }
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 11</h2><article class="program" data-title="slip 11 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 11 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a &#x27;C&#x27; program to reverse a string using Static implementation of Stack.</p><button class="copy" onclick="copyProgram(this,20)">COPY CODE</button><pre id="code-20">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define MAX 100
+char stack[MAX];
+int top = -1;
+/* Push */
+void push(char ch)
+{
+    if(top == MAX - 1)
+    {
+        printf(&quot;Stack Overflow\n&quot;);
+    }
+    else
+    {
+        top++;
+        stack[top] = ch;
+    }
+}
+/* Pop */
+char pop()
+{
+    char ch;
+    if(top == -1)
+    {
+        return &#x27;\0&#x27;;
+    }
+    else
+    {
+        ch = stack[top];
+        top--;
+        return ch;
+    }
+}
+int main()
+{
+    char str[MAX];
+    int i;
+    printf(&quot;Enter a string: &quot;);
+    fgets(str, MAX, stdin);
+    /* Remove newline */
+    str[strcspn(str, &quot;\n&quot;)] = &#x27;\0&#x27;;
+    /* Push string characters into stack */
+    for(i = 0; str[i] != &#x27;\0&#x27;; i++)
+    {
+        push(str[i]);
+    }
+    /* Pop and display reverse */
+    printf(&quot;Reversed string: &quot;);
+    while(top != -1)
+    {
+        printf(&quot;%c&quot;, pop());
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 11 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 11 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Read the data from the &#x27;employee.txt&#x27; file and sort on age using Counting sort and write the sorted data to
+another file &#x27;sortedemponage.txt&#x27;.</p><button class="copy" onclick="copyProgram(this,21)">COPY CODE</button><pre id="code-21">#include &lt;stdio.h&gt;
+struct Employee
+{
+    char name[30];
+    int age;
+};
+int main()
+{
+    FILE *fp, *sp;
+    struct Employee emp[50], sorted[50];
+    int count[101] = {0};
+
+
+    int n = 0, i, j;
+    /* Open employee.txt */
+    fp = fopen(&quot;employee.txt&quot;, &quot;r&quot;);
+    if(fp == NULL)
+    {
+        printf(&quot;File not found\n&quot;);
+        return 0;
+    }
+    /* Read data from file */
+    while(fscanf(fp, &quot;%s %d&quot;, emp[n].name, &amp;emp[n].age) != EOF)
+    {
+        n++;
+    }
+    fclose(fp);
+    /* Counting Sort */
+    for(i = 0; i &lt; n; i++)
+    {
+        count[emp[i].age]++;
+    }
+    /* Calculate position */
+    for(i = 1; i &lt;= 100; i++)
+    {
+        count[i] = count[i] + count[i - 1];
+    }
+    /* Create sorted array */
+    for(i = n - 1; i &gt;= 0; i--)
+    {
+        sorted[count[emp[i].age] - 1] = emp[i];
+        count[emp[i].age]--;
+    }
+    /* Open output file */
+    sp = fopen(&quot;sortedemponage.txt&quot;, &quot;w&quot;);
+    if(sp == NULL)
+    {
+        printf(&quot;Unable to create output file\n&quot;);
+        return 0;
+    }
+    /* Write sorted data */
+    for(i = 0; i &lt; n; i++)
+    {
+        fprintf(sp, &quot;%s %d\n&quot;,
+                sorted[i].name,
+                sorted[i].age);
+    }
+    fclose(sp);
+    printf(&quot;Employee data sorted by age successfully.\n&quot;);
+    printf(&quot;Sorted data stored in sortedemponage.txt\n&quot;);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 12</h2><article class="program" data-title="slip 12 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 12 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Perform the following operations using dynamic implementation of stack: (i) Accept n integers from user and
+push it into the stack. (ii) Reverses a string of characters using stack and check weather given string is
+palindrome or not.</p><button class="copy" onclick="copyProgram(this,22)">COPY CODE</button><pre id="code-22">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+struct node
+{
+    char data;
+    struct node *next;
+};
+struct node *top = NULL;
+/* Push character */
+void push(char ch)
+{
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode-&gt;data = ch;
+    newnode-&gt;next = top;
+    top = newnode;
+}
+/* Pop character */
+char pop()
+{
+    struct node *temp;
+    char ch;
+    if(top == NULL)
+        return &#x27;\0&#x27;;
+    temp = top;
+    ch = top-&gt;data;
+    top = top-&gt;next;
+    free(temp);
+    return ch;
+}
+/* Main function */
+int main()
+{
+    int n, i, value;
+    char str[100], reverse[100];
+    /* Part 1: Accept n integers and push */
+    printf(&quot;Enter number of integers: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d integers:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;value);
+        /* Convert integer to character only for stack demo */
+        push(value + &#x27;0&#x27;);
+    }
+    printf(&quot;Stack elements:\n&quot;);
+    while(top != NULL)
+    {
+        printf(&quot;%c &quot;, pop());
+    }
+    /* Part 2: Reverse string */
+    printf(&quot;\n\nEnter a string: &quot;);
+    scanf(&quot;%s&quot;, str);
+    for(i = 0; str[i] != &#x27;\0&#x27;; i++)
+    {
+        push(str[i]);
+    }
+    i = 0;
+    while(top != NULL)
+    {
+        reverse[i] = pop();
+        i++;
+
+
+    }
+    reverse[i] = &#x27;\0&#x27;;
+    printf(&quot;Reversed string: %s\n&quot;, reverse);
+    /* Check palindrome */
+    if(strcmp(str, reverse) == 0)
+        printf(&quot;String is Palindrome\n&quot;);
+    else
+        printf(&quot;String is not Palindrome\n&quot;);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 12 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 12 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Sort a random array of n integers (accept the value of n from user) in ascending order by using selection sort
+algorithm.</p><button class="copy" onclick="copyProgram(this,23)">COPY CODE</button><pre id="code-23">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main()
+{
+    int a[50], n, i, j, min, temp;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Generate random array */
+    printf(&quot;Random Array:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        a[i] = rand() % 100;
+        printf(&quot;%d &quot;, a[i]);
+    }
+    /* Selection Sort */
+    for(i = 0; i &lt; n - 1; i++)
+    {
+        min = i;
+        for(j = i + 1; j &lt; n; j++)
+        {
+            if(a[j] &lt; a[min])
+            {
+                min = j;
+            }
+        }
+        /* Swap */
+        temp = a[i];
+        a[i] = a[min];
+        a[min] = temp;
+    }
+    /* Display sorted array */
+    printf(&quot;\n\nArray in ascending order:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        printf(&quot;%d &quot;, a[i]);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 13</h2><article class="program" data-title="slip 13 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 13 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Accept n sorted values in array from user. Accept a value x from user and use binary search algorithm to
+check whether the number is present in sorted array or not and output the position if the number is present.</p><button class="copy" onclick="copyProgram(this,24)">COPY CODE</button><pre id="code-24">#include &lt;stdio.h&gt;
+int main()
+{
+    int a[50], n, x;
+    int low, high, mid;
+    int i, found = 0;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d sorted elements:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    }
+    printf(&quot;Enter value to search: &quot;);
+    scanf(&quot;%d&quot;, &amp;x);
+    low = 0;
+    high = n - 1;
+    /* Binary Search */
+    while(low &lt;= high)
+    {
+        mid = (low + high) / 2;
+        if(a[mid] == x)
+        {
+            printf(&quot;Element found at position %d\n&quot;, mid + 1);
+            found = 1;
+            break;
+        }
+        else if(x &lt; a[mid])
+        {
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+    if(found == 0)
+    {
+        printf(&quot;Element not found\n&quot;);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 13 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 13 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Perform the following operations using dynamic implementation of Queue: (i) Insert n elements in a queue. (ii)
+Delete the element from the queue and display it.</p><button class="copy" onclick="copyProgram(this,25)">COPY CODE</button><pre id="code-25">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *front = NULL;
+struct node *rear = NULL;
+/* Insert element in Queue */
+void insert(int value)
+{
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode-&gt;data = value;
+    newnode-&gt;next = NULL;
+    if(rear == NULL)
+    {
+        front = rear = newnode;
+
+
+    }
+    else
+    {
+        rear-&gt;next = newnode;
+        rear = newnode;
+    }
+}
+/* Delete element from Queue */
+void delete()
+{
+    struct node *temp;
+    if(front == NULL)
+    {
+        printf(&quot;Queue is Empty\n&quot;);
+        return;
+    }
+    temp = front;
+    printf(&quot;Deleted element = %d\n&quot;, front-&gt;data);
+    front = front-&gt;next;
+    if(front == NULL)
+        rear = NULL;
+    free(temp);
+}
+int main()
+{
+    int n, i, value;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Insert n elements */
+    printf(&quot;Enter %d elements:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;value);
+        insert(value);
+    }
+    /* Delete element */
+    delete();
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 14</h2><article class="program" data-title="slip 14 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 14 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Read data from “Student.txt (Student_name, Age, Percentage)” file and sort on Percentage using selection
+sort. (Create a separate sorted file.)</p><button class="copy" onclick="copyProgram(this,26)">COPY CODE</button><pre id="code-26">#include &lt;stdio.h&gt;
+struct Student
+{
+    char name[30];
+    int age;
+    float percentage;
+};
+int main()
+{
+    FILE *fp, *sp;
+    struct Student s[50], temp;
+    int n = 0, i, j, min;
+    /* Open Student.txt */
+    fp = fopen(&quot;Student.txt&quot;, &quot;r&quot;);
+    if(fp == NULL)
+    {
+        printf(&quot;File not found\n&quot;);
+        return 0;
+    }
+    /* Read data from file */
+    while(fscanf(fp, &quot;%s %d %f&quot;,
+                 s[n].name,
+                 &amp;s[n].age,
+                 &amp;s[n].percentage) != EOF)
+    {
+        n++;
+    }
+    fclose(fp);
+    /* Selection Sort by Percentage */
+    for(i = 0; i &lt; n - 1; i++)
+    {
+        min = i;
+        for(j = i + 1; j &lt; n; j++)
+        {
+            if(s[j].percentage &lt; s[min].percentage)
+            {
+                min = j;
+            }
+        }
+        /* Swap */
+        temp = s[i];
+        s[i] = s[min];
+        s[min] = temp;
+    }
+    /* Create sorted file */
+    sp = fopen(&quot;SortedStudent.txt&quot;, &quot;w&quot;);
+    if(sp == NULL)
+    {
+        printf(&quot;Unable to create file\n&quot;);
+        return 0;
+    }
+    /* Write sorted data */
+    for(i = 0; i &lt; n; i++)
+    {
+        fprintf(sp, &quot;%s %d %.2f\n&quot;,
+                s[i].name,
+                s[i].age,
+                s[i].percentage);
+    }
+    fclose(sp);
+    printf(&quot;Data sorted by Percentage successfully.\n&quot;);
+    printf(&quot;Sorted data stored in SortedStudent.txt\n&quot;);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 14 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 14 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven program for the following operations on singly linked list: (i) Create a linked list and
+display it. (ii) Accept an element from user and concatenate it with a created linked list.</p><button class="copy" onclick="copyProgram(this,27)">COPY CODE</button><pre id="code-27">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+/* Create Linked List */
+void create()
+{
+    int n, i;
+    struct node *newnode, *temp;
+    printf(&quot;Enter number of nodes: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    for(i = 1; i &lt;= n; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        printf(&quot;Enter data: &quot;);
+        scanf(&quot;%d&quot;, &amp;newnode-&gt;data);
+        newnode-&gt;next = NULL;
+        if(head == NULL)
+        {
+            head = newnode;
+        }
+        else
+        {
+            temp = head;
+            while(temp-&gt;next != NULL)
+            {
+                temp = temp-&gt;next;
+            }
+            temp-&gt;next = newnode;
+        }
+    }
+}
+/* Display Linked List */
+void display()
+{
+    struct node *temp = head;
+    if(head == NULL)
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    printf(&quot;Linked List: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d -&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+/* Concatenate new element */
+void concatenate()
+{
+    int value;
+    struct node *newnode, *temp;
+    printf(&quot;Enter element to concatenate: &quot;);
+    scanf(&quot;%d&quot;, &amp;value);
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode-&gt;data = value;
+    newnode-&gt;next = NULL;
+    if(head == NULL)
+    {
+        head = newnode;
+    }
+    else
+    {
+        temp = head;
+        while(temp-&gt;next != NULL)
+        {
+
+
+            temp = temp-&gt;next;
+        }
+        temp-&gt;next = newnode;
+    }
+    printf(&quot;Element concatenated successfully\n&quot;);
+}
+/* Main Function */
+int main()
+{
+    int choice;
+    while(1)
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Create Linked List\n&quot;);
+        printf(&quot;2. Display Linked List\n&quot;);
+        printf(&quot;3. Concatenate Element\n&quot;);
+        printf(&quot;4. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                create();
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                concatenate();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 15</h2><article class="program" data-title="slip 15 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 15 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Sort a random array of n integers (accept the value of n from user) in ascending order by using insertion sort
+algorithm.</p><button class="copy" onclick="copyProgram(this,28)">COPY CODE</button><pre id="code-28">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main()
+{
+    int a[50], n, i, j, key;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Generate random array */
+    printf(&quot;Random Array:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        a[i] = rand() % 100;
+        printf(&quot;%d &quot;, a[i]);
+    }
+    /* Insertion Sort */
+    for(i = 1; i &lt; n; i++)
+    {
+        key = a[i];
+        j = i - 1;
+        while(j &gt;= 0 &amp;&amp; a[j] &gt; key)
+        {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
+    }
+    /* Display sorted array */
+    printf(&quot;\n\nArray in ascending order:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        printf(&quot;%d &quot;, a[i]);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 15 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 15 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Perform the following operations using dynamic implementation of Queue: (i) Insert n elements in a queue. (ii)
+Delete the element from the queue and display it.</p><button class="copy" onclick="copyProgram(this,29)">COPY CODE</button><pre id="code-29">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *front = NULL;
+struct node *rear = NULL;
+/* Insert operation */
+void insert(int value)
+{
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode-&gt;data = value;
+    newnode-&gt;next = NULL;
+    if(rear == NULL)
+    {
+        front = rear = newnode;
+    }
+    else
+    {
+        rear-&gt;next = newnode;
+        rear = newnode;
+    }
+}
+/* Delete operation */
+
+
+void deleteElement()
+{
+    struct node *temp;
+    if(front == NULL)
+    {
+        printf(&quot;Queue is Empty\n&quot;);
+        return;
+    }
+    temp = front;
+    printf(&quot;Deleted element = %d\n&quot;, front-&gt;data);
+    front = front-&gt;next;
+    if(front == NULL)
+    {
+        rear = NULL;
+    }
+    free(temp);
+}
+int main()
+{
+    int n, i, value;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Insert n elements */
+    printf(&quot;Enter %d elements:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;value);
+        insert(value);
+    }
+    /* Delete element */
+    deleteElement();
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 16</h2><article class="program" data-title="slip 16 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 16 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven program for the following operations: (i) Reverse a linked list and display it. (ii) Accept an
+element from user and concatenate it with created linked list. (iii) Merge two linked list and display it.</p><button class="copy" onclick="copyProgram(this,30)">COPY CODE</button><pre id="code-30">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node {
+    int data;
+    struct node *next;
+};
+struct node* createList() {
+    struct node *head = NULL, *temp, *newnode;
+    int n, i;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    for(i = 0; i &lt; n; i++) {
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf(&quot;Enter element: &quot;);
+        scanf(&quot;%d&quot;, &amp;newnode-&gt;data);
+        newnode-&gt;next = NULL;
+        if(head == NULL) {
+            head = newnode;
+            temp = newnode;
+        } else {
+            temp-&gt;next = newnode;
+            temp = newnode;
+        }
+    }
+    return head;
+}
+void display(struct node *head) {
+    struct node *temp = head;
+    if(head == NULL) {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    while(temp != NULL) {
+        printf(&quot;%d -&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+struct node* reverse(struct node *head) {
+    struct node *prev = NULL, *current = head, *next;
+    while(current != NULL) {
+        next = current-&gt;next;
+        current-&gt;next = prev;
+        prev = current;
+        current = next;
+    }
+    return prev;
+}
+struct node* concatenate(struct node *head, int value) {
+    struct node *newnode, *temp;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    newnode-&gt;data = value;
+    newnode-&gt;next = NULL;
+    if(head == NULL)
+        return newnode;
+    temp = head;
+    while(temp-&gt;next != NULL)
+        temp = temp-&gt;next;
+    temp-&gt;next = newnode;
+    return head;
+}
+struct node* merge(struct node *head1, struct node *head2) {
+    struct node *temp;
+    if(head1 == NULL)
+
+
+        return head2;
+    temp = head1;
+    while(temp-&gt;next != NULL)
+        temp = temp-&gt;next;
+    temp-&gt;next = head2;
+    return head1;
+}
+int main() {
+    struct node *head = NULL, *head2 = NULL;
+    int choice, value;
+    printf(&quot;Create First Linked List\n&quot;);
+    head = createList();
+    do {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Reverse Linked List\n&quot;);
+        printf(&quot;2. Concatenate Element\n&quot;);
+        printf(&quot;3. Merge Two Linked Lists\n&quot;);
+        printf(&quot;4. Display Linked List\n&quot;);
+        printf(&quot;5. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice) {
+            case 1:
+                head = reverse(head);
+                printf(&quot;Reversed List: &quot;);
+                display(head);
+                break;
+            case 2:
+                printf(&quot;Enter element to concatenate: &quot;);
+                scanf(&quot;%d&quot;, &amp;value);
+                head = concatenate(head, value);
+                printf(&quot;List after concatenation: &quot;);
+                display(head);
+                break;
+            case 3:
+                printf(&quot;\nCreate Second Linked List\n&quot;);
+                head2 = createList();
+                head = merge(head, head2);
+                printf(&quot;Merged List: &quot;);
+                display(head);
+                break;
+            case 4:
+                printf(&quot;Linked List: &quot;);
+                display(head);
+                break;
+            case 5:
+                printf(&quot;Exit\n&quot;);
+                break;
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    } while(choice != 5);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 16 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 16 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Read the data from file &#x27;cities.txt&#x27; containing names of 10 cities and their STD codes. Accept a city from user
+and use linear search algorithm to check whether the name is present in the file and output the STD code,
+otherwise output &quot;city not in the list&quot;.</p><button class="copy" onclick="copyProgram(this,31)">COPY CODE</button><pre id="code-31">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+struct city {
+    char name[30];
+    int stdcode;
+};
+int main() {
+
+
+    struct city c[10];
+    FILE *fp;
+    char search[30];
+    int i, found = 0;
+    fp = fopen(&quot;cities.txt&quot;, &quot;r&quot;);
+    if(fp == NULL) {
+        printf(&quot;File not found!&quot;);
+        return 0;
+    }
+    /* Read 10 cities from file */
+    for(i = 0; i &lt; 10; i++) {
+        fscanf(fp, &quot;%s %d&quot;, c[i].name, &amp;c[i].stdcode);
+    }
+    fclose(fp);
+    printf(&quot;Enter city name: &quot;);
+    scanf(&quot;%s&quot;, search);
+    /* Linear Search */
+    for(i = 0; i &lt; 10; i++) {
+        if(strcmp(c[i].name, search) == 0) {
+            printf(&quot;STD Code of %s = %d\n&quot;, c[i].name, c[i].stdcode);
+            found = 1;
+            break;
+        }
+    }
+    if(found == 0) {
+        printf(&quot;city not in the list\n&quot;);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 17</h2><article class="program" data-title="slip 17 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 17 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Sort a random array of n integers (accept the value of n from user) in ascending order by using recursive
+Quick sort algorithm.</p><button class="copy" onclick="copyProgram(this,32)">COPY CODE</button><pre id="code-32">#include &lt;stdio.h&gt;
+void quicksort(int a[], int low, int high)
+{
+    int i, j, pivot, temp;
+    if(low &lt; high)
+    {
+        pivot = a[low];
+        i = low;
+        j = high;
+        while(i &lt; j)
+        {
+            while(a[i] &lt;= pivot &amp;&amp; i &lt; high)
+                i++;
+            while(a[j] &gt; pivot)
+                j--;
+            if(i &lt; j)
+            {
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+        temp = a[low];
+        a[low] = a[j];
+        a[j] = temp;
+        quicksort(a, low, j - 1);
+        quicksort(a, j + 1, high);
+    }
+}
+int main()
+{
+    int a[100], n, i;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d integers:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    quicksort(a, 0, n - 1);
+    printf(&quot;Array in ascending order:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+        printf(&quot;%d &quot;, a[i]);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 17 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 17 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Perform the following operations using implementation of stack (Static or dynamic): (i) Accept n integers from
+user and push into the stack. (ii) Reverses a string of characters using stack.</p><button class="copy" onclick="copyProgram(this,33)">COPY CODE</button><pre id="code-33">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define MAX 100
+int stack[MAX];
+int top = -1;
+void push(int x)
+{
+    if(top == MAX - 1)
+        printf(&quot;Stack Overflow\n&quot;);
+    else
+        stack[++top] = x;
+}
+int pop()
+{
+    if(top == -1)
+
+
+        return -1;
+    else
+        return stack[top--];
+}
+int main()
+{
+    int n, i, x;
+    char str[MAX];
+    /* (i) Push n integers */
+    printf(&quot;Enter number of integers: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d integers:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;x);
+        push(x);
+    }
+    printf(&quot;Stack elements are:\n&quot;);
+    for(i = top; i &gt;= 0; i--)
+        printf(&quot;%d &quot;, stack[i]);
+    /* (ii) Reverse string using stack */
+    printf(&quot;\n\nEnter a string: &quot;);
+    scanf(&quot;%s&quot;, str);
+    top = -1;
+    for(i = 0; str[i] != &#x27;\0&#x27;; i++)
+        push(str[i]);
+    printf(&quot;Reversed string: &quot;);
+    while(top != -1)
+        printf(&quot;%c&quot;, pop());
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 18</h2><article class="program" data-title="slip 18 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 18 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Sort a random array of n integers (accept the value of n from user) in ascending order by using bubble sort
+algorithm.</p><button class="copy" onclick="copyProgram(this,34)">COPY CODE</button><pre id="code-34">#include &lt;stdio.h&gt;
+int main()
+{
+    int a[100], n, i, j, temp;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d integers:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    /* Bubble Sort */
+    for(i = 0; i &lt; n - 1; i++)
+    {
+        for(j = 0; j &lt; n - i - 1; j++)
+        {
+            if(a[j] &gt; a[j + 1])
+            {
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+    printf(&quot;Array in ascending order:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+        printf(&quot;%d &quot;, a[i]);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 18 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 18 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a program to perform the following operation on stack: Convert an infix expression of the form
+(a+b-c)*(a-d/b) into its equivalent postfix notation.</p><button class="copy" onclick="copyProgram(this,35)">COPY CODE</button><pre id="code-35">#include &lt;stdio.h&gt;
+#include &lt;ctype.h&gt;
+char stack[100];
+int top = -1;
+void push(char x)
+{
+    stack[++top] = x;
+}
+char pop()
+{
+    return stack[top--];
+}
+int priority(char x)
+{
+    if(x == &#x27;+&#x27; || x == &#x27;-&#x27;)
+        return 1;
+    if(x == &#x27;*&#x27; || x == &#x27;/&#x27;)
+        return 2;
+    return 0;
+}
+int main()
+{
+    char infix[100], postfix[100];
+    int i, j = 0;
+    char ch;
+    printf(&quot;Enter infix expression: &quot;);
+    scanf(&quot;%s&quot;, infix);
+    for(i = 0; infix[i] != &#x27;\0&#x27;; i++)
+    {
+        ch = infix[i];
+        if(isalnum(ch))
+        {
+            postfix[j++] = ch;
+        }
+
+
+        else if(ch == &#x27;(&#x27;)
+        {
+            push(ch);
+        }
+        else if(ch == &#x27;)&#x27;)
+        {
+            while(top != -1 &amp;&amp; stack[top] != &#x27;(&#x27;)
+                postfix[j++] = pop();
+            pop();
+        }
+        else
+        {
+            while(top != -1 &amp;&amp; priority(stack[top]) &gt;= priority(ch))
+                postfix[j++] = pop();
+            push(ch);
+        }
+    }
+    while(top != -1)
+        postfix[j++] = pop();
+    postfix[j] = &#x27;\0&#x27;;
+    printf(&quot;Postfix expression: %s&quot;, postfix);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 19</h2><article class="program" data-title="slip 19 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 19 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Read the data from the &#x27;employee.txt&#x27; file and sort on age using Bubble sort.</p><button class="copy" onclick="copyProgram(this,36)">COPY CODE</button><pre id="code-36">#include &lt;stdio.h&gt;
+struct employee
+{
+    char name[30];
+    int age;
+};
+int main()
+{
+    struct employee e[10], temp;
+    FILE *fp;
+    int i, j, n;
+    fp = fopen(&quot;employee.txt&quot;, &quot;r&quot;);
+    if(fp == NULL)
+    {
+        printf(&quot;File not found!&quot;);
+        return 0;
+    }
+    printf(&quot;Enter number of employees: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Read data from file */
+    for(i = 0; i &lt; n; i++)
+    {
+        fscanf(fp, &quot;%s %d&quot;, e[i].name, &amp;e[i].age);
+    }
+    fclose(fp);
+    /* Bubble Sort according to age */
+    for(i = 0; i &lt; n - 1; i++)
+    {
+        for(j = 0; j &lt; n - i - 1; j++)
+        {
+            if(e[j].age &gt; e[j + 1].age)
+            {
+                temp = e[j];
+                e[j] = e[j + 1];
+                e[j + 1] = temp;
+            }
+        }
+    }
+    printf(&quot;\nEmployees sorted by age:\n&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        printf(&quot;%s %d\n&quot;, e[i].name, e[i].age);
+    }
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 19 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 19 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Perform the following operations using dynamic implementation of Queue: (i) Insert n elements in a queue. (ii)
+Delete the element from the queue and display updated queue.</p><button class="copy" onclick="copyProgram(this,37)">COPY CODE</button><pre id="code-37">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *front = NULL;
+struct node *rear = NULL;
+void insert(int x)
+{
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode-&gt;data = x;
+    newnode-&gt;next = NULL;
+    if(front == NULL)
+    {
+        front = rear = newnode;
+
+
+    }
+    else
+    {
+        rear-&gt;next = newnode;
+        rear = newnode;
+    }
+}
+void delete()
+{
+    struct node *temp;
+    if(front == NULL)
+    {
+        printf(&quot;Queue is empty\n&quot;);
+        return;
+    }
+    temp = front;
+    printf(&quot;Deleted element: %d\n&quot;, front-&gt;data);
+    front = front-&gt;next;
+    if(front == NULL)
+        rear = NULL;
+    free(temp);
+}
+void display()
+{
+    struct node *temp;
+    if(front == NULL)
+    {
+        printf(&quot;Queue is empty\n&quot;);
+        return;
+    }
+    temp = front;
+    printf(&quot;Updated Queue: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;\n&quot;);
+}
+int main()
+{
+    int n, i, x;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d elements:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;x);
+        insert(x);
+    }
+    printf(&quot;\nQueue before deletion:\n&quot;);
+    display();
+    delete();
+    printf(&quot;\nAfter deletion:\n&quot;);
+    display();
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 20</h2><article class="program" data-title="slip 20 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 20 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Read the data from the &#x27;employee.txt&#x27; file and sort on age using Merge sort. Write the sorted data to another
+file &#x27;sortedempdata.txt&#x27;.</p><button class="copy" onclick="copyProgram(this,38)">COPY CODE</button><pre id="code-38">#include &lt;stdio.h&gt;
+struct employee
+{
+    char name[30];
+    int age;
+};
+void merge(struct employee e[], int low, int mid, int high)
+{
+    struct employee temp[50];
+    int i = low, j = mid + 1, k = low;
+    while(i &lt;= mid &amp;&amp; j &lt;= high)
+    {
+        if(e[i].age &lt;= e[j].age)
+            temp[k++] = e[i++];
+        else
+            temp[k++] = e[j++];
+    }
+    while(i &lt;= mid)
+        temp[k++] = e[i++];
+    while(j &lt;= high)
+        temp[k++] = e[j++];
+    for(i = low; i &lt;= high; i++)
+        e[i] = temp[i];
+}
+void mergeSort(struct employee e[], int low, int high)
+{
+    int mid;
+    if(low &lt; high)
+    {
+        mid = (low + high) / 2;
+        mergeSort(e, low, mid);
+        mergeSort(e, mid + 1, high);
+        merge(e, low, mid, high);
+    }
+}
+int main()
+{
+    struct employee e[50];
+    FILE *fp, *out;
+    int n, i;
+    fp = fopen(&quot;employee.txt&quot;, &quot;r&quot;);
+    if(fp == NULL)
+    {
+        printf(&quot;File not found!&quot;);
+        return 0;
+    }
+    printf(&quot;Enter number of employees: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Read data from employee.txt */
+    for(i = 0; i &lt; n; i++)
+    {
+        fscanf(fp, &quot;%s %d&quot;, e[i].name, &amp;e[i].age);
+    }
+    fclose(fp);
+    /* Merge Sort */
+    mergeSort(e, 0, n - 1);
+    /* Write sorted data to another file */
+    out = fopen(&quot;sortedempdata.txt&quot;, &quot;w&quot;);
+    for(i = 0; i &lt; n; i++)
+    {
+        fprintf(out, &quot;%s %d\n&quot;, e[i].name, e[i].age);
+    }
+    fclose(out);
+    printf(&quot;Data sorted successfully.&quot;);
+    printf(&quot;\nSorted data is stored in sortedempdata.txt&quot;);
+
+
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 20 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 20 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a C program to implement Static implementation of stack of integers with following operation: a.
+Initialize() b. Push() c. Pop() d. IsEmpty() e. IsFull() f. Peek()</p><button class="copy" onclick="copyProgram(this,39)">COPY CODE</button><pre id="code-39">#include &lt;stdio.h&gt;
+#define MAX 5
+int stack[MAX];
+int top = -1;
+/* Initialize */
+void Initialize()
+{
+    top = -1;
+}
+/* IsEmpty */
+int IsEmpty()
+{
+    if(top == -1)
+        return 1;
+    else
+        return 0;
+}
+/* IsFull */
+int IsFull()
+{
+    if(top == MAX - 1)
+        return 1;
+    else
+        return 0;
+}
+/* Push */
+void Push(int x)
+{
+    if(IsFull())
+        printf(&quot;Stack Overflow\n&quot;);
+    else
+    {
+        top++;
+        stack[top] = x;
+        printf(&quot;%d pushed into stack\n&quot;, x);
+    }
+}
+/* Pop */
+void Pop()
+{
+    if(IsEmpty())
+        printf(&quot;Stack Underflow\n&quot;);
+    else
+    {
+        printf(&quot;Popped element: %d\n&quot;, stack[top]);
+        top--;
+    }
+}
+/* Peek */
+void Peek()
+{
+    if(IsEmpty())
+        printf(&quot;Stack is empty\n&quot;);
+    else
+        printf(&quot;Top element: %d\n&quot;, stack[top]);
+}
+/* Display */
+void Display()
+{
+    int i;
+    if(IsEmpty())
+        printf(&quot;Stack is empty\n&quot;);
+    else
+    {
+        printf(&quot;Stack elements:\n&quot;);
+        for(i = top; i &gt;= 0; i--)
+            printf(&quot;%d &quot;, stack[i]);
+        printf(&quot;\n&quot;);
+    }
+}
+int main()
+
+
+{
+    int choice, x;
+    Initialize();
+    do
+    {
+        printf(&quot;\n--- STACK MENU ---\n&quot;);
+        printf(&quot;1. Push\n&quot;);
+        printf(&quot;2. Pop\n&quot;);
+        printf(&quot;3. IsEmpty\n&quot;);
+        printf(&quot;4. IsFull\n&quot;);
+        printf(&quot;5. Peek\n&quot;);
+        printf(&quot;6. Display\n&quot;);
+        printf(&quot;7. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                printf(&quot;Enter element: &quot;);
+                scanf(&quot;%d&quot;, &amp;x);
+                Push(x);
+                break;
+            case 2:
+                Pop();
+                break;
+            case 3:
+                if(IsEmpty())
+                    printf(&quot;Stack is Empty\n&quot;);
+                else
+                    printf(&quot;Stack is not Empty\n&quot;);
+                break;
+            case 4:
+                if(IsFull())
+                    printf(&quot;Stack is Full\n&quot;);
+                else
+                    printf(&quot;Stack is not Full\n&quot;);
+                break;
+            case 5:
+                Peek();
+                break;
+            case 6:
+                Display();
+                break;
+            case 7:
+                printf(&quot;Exit\n&quot;);
+                break;
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    } while(choice != 7);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 21</h2><article class="program" data-title="slip 21 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 21 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Perform the following operations using static implementation of Queue: (i) Create a queue of n integers. (ii)
+Delete the element from the queue and display updated queue.</p><button class="copy" onclick="copyProgram(this,40)">COPY CODE</button><pre id="code-40">#include &lt;stdio.h&gt;
+#define MAX 100
+int queue[MAX];
+int front = -1;
+int rear = -1;
+/* Insert element */
+void insert(int x)
+{
+    if(rear == MAX - 1)
+    {
+        printf(&quot;Queue is Full\n&quot;);
+    }
+    else
+    {
+        if(front == -1)
+            front = 0;
+        rear++;
+        queue[rear] = x;
+    }
+}
+/* Delete element */
+void delete()
+{
+    if(front == -1 || front &gt; rear)
+    {
+        printf(&quot;Queue is Empty\n&quot;);
+    }
+    else
+    {
+        printf(&quot;Deleted element: %d\n&quot;, queue[front]);
+        front++;
+    }
+}
+/* Display queue */
+void display()
+{
+    int i;
+    if(front == -1 || front &gt; rear)
+    {
+        printf(&quot;Queue is Empty\n&quot;);
+    }
+    else
+    {
+        printf(&quot;Updated Queue: &quot;);
+        for(i = front; i &lt;= rear; i++)
+            printf(&quot;%d &quot;, queue[i]);
+        printf(&quot;\n&quot;);
+    }
+}
+int main()
+{
+    int n, i, x;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d elements:\n&quot;, n);
+    /* Create Queue */
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;x);
+        insert(x);
+    }
+    printf(&quot;\nQueue before deletion:\n&quot;);
+    display();
+    /* Delete element */
+    delete();
+    printf(&quot;\nAfter deletion:\n&quot;);
+    display();
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 21 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 21 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven program for the following operations on singly linked list: (i) Insert an element in a linked
+list in a particular position. (ii) Search an element in a linked list.</p><button class="copy" onclick="copyProgram(this,41)">COPY CODE</button><pre id="code-41">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+/* Insert at particular position */
+void insert()
+{
+    struct node *newnode, *temp;
+    int value, pos, i;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    printf(&quot;Enter element: &quot;);
+    scanf(&quot;%d&quot;, &amp;value);
+    printf(&quot;Enter position: &quot;);
+    scanf(&quot;%d&quot;, &amp;pos);
+    newnode-&gt;data = value;
+    newnode-&gt;next = NULL;
+    if(pos == 1)
+    {
+        newnode-&gt;next = head;
+        head = newnode;
+    }
+    else
+    {
+        temp = head;
+        for(i = 1; i &lt; pos - 1 &amp;&amp; temp != NULL; i++)
+            temp = temp-&gt;next;
+        if(temp == NULL)
+        {
+            printf(&quot;Invalid position\n&quot;);
+            free(newnode);
+            return;
+        }
+        newnode-&gt;next = temp-&gt;next;
+        temp-&gt;next = newnode;
+    }
+    printf(&quot;Element inserted successfully\n&quot;);
+}
+/* Search element */
+void search()
+{
+    struct node *temp = head;
+    int value, pos = 1, found = 0;
+    printf(&quot;Enter element to search: &quot;);
+    scanf(&quot;%d&quot;, &amp;value);
+    while(temp != NULL)
+    {
+        if(temp-&gt;data == value)
+        {
+            printf(&quot;Element found at position %d\n&quot;, pos);
+            found = 1;
+            break;
+        }
+        temp = temp-&gt;next;
+        pos++;
+    }
+    if(found == 0)
+        printf(&quot;Element not found\n&quot;);
+}
+/* Display list */
+void display()
+{
+    struct node *temp = head;
+    if(head == NULL)
+
+
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    printf(&quot;Linked List: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d -&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+int main()
+{
+    int choice;
+    do
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Insert element\n&quot;);
+        printf(&quot;2. Search element\n&quot;);
+        printf(&quot;3. Display list\n&quot;);
+        printf(&quot;4. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                insert();
+                break;
+            case 2:
+                search();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                printf(&quot;Exit\n&quot;);
+                break;
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    } while(choice != 4);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 22</h2><article class="program" data-title="slip 22 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 22 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Read the data from the &#x27;employee.txt&#x27; file and sort on age using Quick sort and write the sorted data onto file
+&#x27;sortedemponage.txt&#x27;</p><button class="copy" onclick="copyProgram(this,42)">COPY CODE</button><pre id="code-42">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct employee
+{
+    char name[30];
+    int age;
+};
+void quickSort(struct employee e[], int low, int high)
+{
+    int i, j;
+    struct employee pivot, temp;
+    if(low &lt; high)
+    {
+        pivot = e[low];
+        i = low;
+        j = high;
+        while(i &lt; j)
+        {
+            while(e[i].age &lt;= pivot.age &amp;&amp; i &lt; high)
+                i++;
+            while(e[j].age &gt; pivot.age)
+                j--;
+            if(i &lt; j)
+            {
+                temp = e[i];
+                e[i] = e[j];
+                e[j] = temp;
+            }
+        }
+        temp = e[low];
+        e[low] = e[j];
+        e[j] = temp;
+        quickSort(e, low, j - 1);
+        quickSort(e, j + 1, high);
+    }
+}
+int main()
+{
+    struct employee e[50];
+    FILE *fp, *out;
+    int n, i;
+    fp = fopen(&quot;employee.txt&quot;, &quot;r&quot;);
+    if(fp == NULL)
+    {
+        printf(&quot;File not found!&quot;);
+        return 0;
+    }
+    printf(&quot;Enter number of employees: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    /* Read data from file */
+    for(i = 0; i &lt; n; i++)
+    {
+        fscanf(fp, &quot;%s %d&quot;, e[i].name, &amp;e[i].age);
+    }
+    fclose(fp);
+    /* Quick Sort */
+    quickSort(e, 0, n - 1);
+    /* Write sorted data to file */
+    out = fopen(&quot;sortedemponage.txt&quot;, &quot;w&quot;);
+    if(out == NULL)
+    {
+        printf(&quot;Unable to create file!&quot;);
+        return 0;
+    }
+    for(i = 0; i &lt; n; i++)
+    {
+        fprintf(out, &quot;%s %d\n&quot;, e[i].name, e[i].age);
+    }
+
+
+    fclose(out);
+    printf(&quot;Data sorted successfully.&quot;);
+    printf(&quot;\nSorted data stored in sortedemponage.txt&quot;);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 22 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 22 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven program for the following operations on singly linked list: (i) Insert an element in a linked
+list at a particular position. (ii) Delete a particular element from a linked list.</p><button class="copy" onclick="copyProgram(this,43)">COPY CODE</button><pre id="code-43">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+/* Insert element at particular position */
+void insert()
+{
+    struct node *newnode, *temp;
+    int value, pos, i;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    printf(&quot;Enter element: &quot;);
+    scanf(&quot;%d&quot;, &amp;value);
+    printf(&quot;Enter position: &quot;);
+    scanf(&quot;%d&quot;, &amp;pos);
+    newnode-&gt;data = value;
+    if(pos == 1)
+    {
+        newnode-&gt;next = head;
+        head = newnode;
+    }
+    else
+    {
+        temp = head;
+        for(i = 1; i &lt; pos - 1 &amp;&amp; temp != NULL; i++)
+            temp = temp-&gt;next;
+        if(temp == NULL)
+        {
+            printf(&quot;Invalid position\n&quot;);
+            free(newnode);
+            return;
+        }
+        newnode-&gt;next = temp-&gt;next;
+        temp-&gt;next = newnode;
+    }
+    printf(&quot;Element inserted successfully\n&quot;);
+}
+/* Delete particular element */
+void deleteElement()
+{
+    struct node *temp = head;
+    struct node *prev = NULL;
+    int value;
+    printf(&quot;Enter element to delete: &quot;);
+    scanf(&quot;%d&quot;, &amp;value);
+    if(head == NULL)
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    /* If first element is to be deleted */
+    if(head-&gt;data == value)
+    {
+        head = head-&gt;next;
+        free(temp);
+        printf(&quot;Element deleted successfully\n&quot;);
+        return;
+    }
+    while(temp != NULL &amp;&amp; temp-&gt;data != value)
+
+
+    {
+        prev = temp;
+        temp = temp-&gt;next;
+    }
+    if(temp == NULL)
+    {
+        printf(&quot;Element not found\n&quot;);
+    }
+    else
+    {
+        prev-&gt;next = temp-&gt;next;
+        free(temp);
+        printf(&quot;Element deleted successfully\n&quot;);
+    }
+}
+/* Display linked list */
+void display()
+{
+    struct node *temp = head;
+    if(head == NULL)
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    printf(&quot;Linked List: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d -&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+int main()
+{
+    int choice;
+    do
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Insert element\n&quot;);
+        printf(&quot;2. Delete element\n&quot;);
+        printf(&quot;3. Display list\n&quot;);
+        printf(&quot;4. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                insert();
+                break;
+            case 2:
+                deleteElement();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                printf(&quot;Exit\n&quot;);
+                break;
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    } while(choice != 4);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 23</h2><article class="program" data-title="slip 23 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 23 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven program for the following operations on doubly linked list: (i) Create and display linked
+list. (ii) Reverse a linked list and display it.</p><button class="copy" onclick="copyProgram(this,44)">COPY CODE</button><pre id="code-44">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *prev;
+    struct node *next;
+};
+struct node *head = NULL;
+/* Create Doubly Linked List */
+void create()
+{
+    struct node *newnode, *temp;
+    int n, i;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    for(i = 0; i &lt; n; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        printf(&quot;Enter element: &quot;);
+        scanf(&quot;%d&quot;, &amp;newnode-&gt;data);
+        newnode-&gt;prev = NULL;
+        newnode-&gt;next = NULL;
+        if(head == NULL)
+        {
+            head = newnode;
+        }
+        else
+        {
+            temp = head;
+            while(temp-&gt;next != NULL)
+                temp = temp-&gt;next;
+            temp-&gt;next = newnode;
+            newnode-&gt;prev = temp;
+        }
+    }
+    printf(&quot;Linked list created successfully\n&quot;);
+}
+/* Display Linked List */
+void display()
+{
+    struct node *temp = head;
+    if(head == NULL)
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    printf(&quot;Linked List: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d &lt;-&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+/* Reverse Doubly Linked List */
+void reverse()
+{
+    struct node *temp = NULL;
+    struct node *current = head;
+    while(current != NULL)
+    {
+        temp = current-&gt;prev;
+        current-&gt;prev = current-&gt;next;
+        current-&gt;next = temp;
+        current = current-&gt;prev;
+    }
+
+
+    if(temp != NULL)
+        head = temp-&gt;prev;
+}
+/* Main Function */
+int main()
+{
+    int choice;
+    do
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Create and Display\n&quot;);
+        printf(&quot;2. Reverse and Display\n&quot;);
+        printf(&quot;3. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                create();
+                display();
+                break;
+            case 2:
+                reverse();
+                printf(&quot;Reversed Linked List: &quot;);
+                display();
+                break;
+            case 3:
+                printf(&quot;Exit\n&quot;);
+                break;
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    } while(choice != 3);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 23 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 23 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Perform the following operations using static implementation of stack: (i) Accept n integers from user and
+push into the stack. (ii) Pop the element from the stack and display it (Use IsEmpty()).</p><button class="copy" onclick="copyProgram(this,45)">COPY CODE</button><pre id="code-45">#include &lt;stdio.h&gt;
+#define MAX 100
+int stack[MAX];
+int top = -1;
+/* IsEmpty */
+int IsEmpty()
+{
+    if(top == -1)
+        return 1;
+    else
+        return 0;
+}
+/* Push */
+void Push(int x)
+{
+    if(top == MAX - 1)
+        printf(&quot;Stack Overflow\n&quot;);
+    else
+        stack[++top] = x;
+}
+/* Pop */
+void Pop()
+{
+    if(IsEmpty())
+    {
+        printf(&quot;Stack is Empty\n&quot;);
+    }
+    else
+    {
+        printf(&quot;Popped element: %d\n&quot;, stack[top]);
+        top--;
+    }
+}
+int main()
+{
+    int n, i, x;
+
+
+    printf(&quot;Enter number of integers: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d integers:\n&quot;, n);
+    /* Push n integers */
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;x);
+        Push(x);
+    }
+    /* Pop element */
+    Pop();
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 24</h2><article class="program" data-title="slip 24 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 24 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Accept the array of n integers from user and sort the array in ascending order by using recursive counting
+sort algorithm.</p><button class="copy" onclick="copyProgram(this,46)">COPY CODE</button><pre id="code-46">#include &lt;stdio.h&gt;
+void countSort(int a[], int n, int index, int count[], int max)
+{
+    if(index == n)
+        return;
+    count[a[index]]++;
+    countSort(a, n, index + 1, count, max);
+}
+void displaySorted(int count[], int value, int max)
+{
+    if(value &gt; max)
+        return;
+    if(count[value] &gt; 0)
+    {
+        printf(&quot;%d &quot;, value);
+        count[value]--;
+        displaySorted(count, value, max);
+    }
+    else
+    {
+        displaySorted(count, value + 1, max);
+    }
+}
+int main()
+{
+    int a[100], count[100] = {0};
+    int n, i, max;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d integers:\n&quot;, n);
+    for(i = 0; i &lt; n; i++)
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    max = a[0];
+    for(i = 1; i &lt; n; i++)
+    {
+        if(a[i] &gt; max)
+            max = a[i];
+    }
+    /* Recursive Counting Sort */
+    countSort(a, n, 0, count, max);
+    printf(&quot;Array in ascending order:\n&quot;);
+    displaySorted(count, 0, max);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 24 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 24 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Perform the following operations using static implementation of Queue: (i) Create the queue of n integers. (ii)
+Delete the element. (iii) Display the updated queue.</p><button class="copy" onclick="copyProgram(this,47)">COPY CODE</button><pre id="code-47">#include &lt;stdio.h&gt;
+#define MAX 100
+int queue[MAX];
+int front = -1, rear = -1;
+/* Insert element */
+void insert(int x)
+{
+    if(rear == MAX - 1)
+    {
+        printf(&quot;Queue is Full\n&quot;);
+    }
+    else
+    {
+        if(front == -1)
+
+
+            front = 0;
+        rear++;
+        queue[rear] = x;
+    }
+}
+/* Delete element */
+void delete()
+{
+    if(front == -1 || front &gt; rear)
+    {
+        printf(&quot;Queue is Empty\n&quot;);
+    }
+    else
+    {
+        printf(&quot;Deleted element: %d\n&quot;, queue[front]);
+        front++;
+    }
+}
+/* Display queue */
+void display()
+{
+    int i;
+    if(front == -1 || front &gt; rear)
+    {
+        printf(&quot;Queue is Empty\n&quot;);
+    }
+    else
+    {
+        printf(&quot;Updated Queue: &quot;);
+        for(i = front; i &lt;= rear; i++)
+            printf(&quot;%d &quot;, queue[i]);
+        printf(&quot;\n&quot;);
+    }
+}
+int main()
+{
+    int n, i, x;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;Enter %d integers:\n&quot;, n);
+    /* Create Queue */
+    for(i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;x);
+        insert(x);
+    }
+    printf(&quot;\nOriginal Queue:\n&quot;);
+    display();
+    /* Delete element */
+    delete();
+    /* Display updated queue */
+    display();
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><section><h2>SLIP 25</h2><article class="program" data-title="slip 25 — option a"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 25 — Option A</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven C program for the following operations on singly linked list: (i) Create linked list and
+display it. (ii) Accept an element from user and concatenate it with the created linked list.</p><button class="copy" onclick="copyProgram(this,48)">COPY CODE</button><pre id="code-48">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+/* Create Linked List */
+void create()
+{
+    struct node *newnode, *temp;
+    int n, i;
+    printf(&quot;Enter number of elements: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+    for(i = 0; i &lt; n; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        printf(&quot;Enter element: &quot;);
+        scanf(&quot;%d&quot;, &amp;newnode-&gt;data);
+        newnode-&gt;next = NULL;
+        if(head == NULL)
+        {
+            head = newnode;
+        }
+        else
+        {
+            temp = head;
+            while(temp-&gt;next != NULL)
+                temp = temp-&gt;next;
+            temp-&gt;next = newnode;
+        }
+    }
+}
+/* Display Linked List */
+void display()
+{
+    struct node *temp = head;
+    if(head == NULL)
+    {
+        printf(&quot;List is empty\n&quot;);
+        return;
+    }
+    printf(&quot;Linked List: &quot;);
+    while(temp != NULL)
+    {
+        printf(&quot;%d -&gt; &quot;, temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+/* Concatenate element */
+void concatenate()
+{
+    struct node *newnode, *temp;
+    int value;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    printf(&quot;Enter element to concatenate: &quot;);
+    scanf(&quot;%d&quot;, &amp;value);
+    newnode-&gt;data = value;
+    newnode-&gt;next = NULL;
+    if(head == NULL)
+    {
+        head = newnode;
+    }
+    else
+
+
+    {
+        temp = head;
+        while(temp-&gt;next != NULL)
+            temp = temp-&gt;next;
+        temp-&gt;next = newnode;
+    }
+    printf(&quot;Element concatenated successfully\n&quot;);
+}
+int main()
+{
+    int choice;
+    do
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Create and Display\n&quot;);
+        printf(&quot;2. Concatenate Element\n&quot;);
+        printf(&quot;3. Display List\n&quot;);
+        printf(&quot;4. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                create();
+                display();
+                break;
+            case 2:
+                concatenate();
+                display();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                printf(&quot;Exit\n&quot;);
+                break;
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    } while(choice != 4);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article><article class="program" data-title="slip 25 — option b"><button class="program-header" onclick="toggleProgram(this)"><span>Slip 25 — Option B</span><span class="arrow">▶</span></button><div class="program-body"><p class="question">Q1) Write a menu driven C program to perform the following operations on stack: (i) Accept a postfix expression.
+(ii) Evaluation of postfix expression.</p><button class="copy" onclick="copyProgram(this,49)">COPY CODE</button><pre id="code-49">#include &lt;stdio.h&gt;
+#include &lt;ctype.h&gt;
+#define MAX 100
+int stack[MAX];
+int top = -1;
+/* Push */
+void push(int x)
+{
+    stack[++top] = x;
+}
+/* Pop */
+int pop()
+{
+    return stack[top--];
+}
+/* Evaluate Postfix */
+void evaluate(char exp[])
+{
+    int i, a, b, result;
+    top = -1;
+    for(i = 0; exp[i] != &#x27;\0&#x27;; i++)
+    {
+        if(isdigit(exp[i]))
+        {
+
+
+            push(exp[i] - &#x27;0&#x27;);
+        }
+        else
+        {
+            b = pop();
+            a = pop();
+            switch(exp[i])
+            {
+                case &#x27;+&#x27;:
+                    result = a + b;
+                    break;
+                case &#x27;-&#x27;:
+                    result = a - b;
+                    break;
+                case &#x27;*&#x27;:
+                    result = a * b;
+                    break;
+                case &#x27;/&#x27;:
+                    result = a / b;
+                    break;
+                default:
+                    printf(&quot;Invalid operator\n&quot;);
+                    return;
+            }
+            push(result);
+        }
+    }
+    printf(&quot;Result = %d\n&quot;, pop());
+}
+int main()
+{
+    char postfix[MAX];
+    int choice;
+    do
+    {
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Accept Postfix Expression\n&quot;);
+        printf(&quot;2. Evaluate Postfix Expression\n&quot;);
+        printf(&quot;3. Exit\n&quot;);
+        printf(&quot;Enter your choice: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+        switch(choice)
+        {
+            case 1:
+                printf(&quot;Enter postfix expression: &quot;);
+                scanf(&quot;%s&quot;, postfix);
+                printf(&quot;Expression accepted.\n&quot;);
+                break;
+            case 2:
+                evaluate(postfix);
+                break;
+            case 3:
+                printf(&quot;Exit\n&quot;);
+                break;
+            default:
+                printf(&quot;Invalid choice\n&quot;);
+        }
+    } while(choice != 3);
+    return 0;
+}</pre><div class="copied">Copied ✓</div></div></article></section><div id="empty" class="empty">No program found.</div></main></body></html>
